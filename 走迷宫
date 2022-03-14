@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<Windows.h>
+#include<conio.h>
+
+
+#define Row 9
+#define Col 11
+char map[Row][Col+1] = {
+				"*#*********",
+				"***###*###*",
+				"###**#****#",
+				"*#**###**#*",
+				"***********",
+				"#####*##*##",
+				"**#*****#*E",
+				"***#*###**#",
+				"*#*********", };
+void print_map()
+{
+	for (int i = 0;i < Row;i++)
+	{
+		puts(map[i]);
+	}
+}
+
+void show_cursor(int x, int y)
+{
+				COORD pos;
+				pos.X = x;
+				pos.Y = y;
+				printf("curX=%d,curY=%d\n",x,y);
+				SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+}
+int curX, curY;
+int main()
+{
+	while (1)
+	{
+		system("cls");
+		print_map();
+		show_cursor(curX,curY);
+
+
+		char t = _getch();
+		if (t == 'w')
+		{
+			//向上走
+			if ((curY - 1) >= 0 && (map[curY - 1][curX] == '*' || map[curY - 1][curX] == 'E'))curY--;
+		}
+		else if (t == 's')
+		{
+			//向下走
+			if ((curY + 1) < Row && (map[curY + 1][curX] == '*' || map[curY + 1][curX] == 'E'))curY++;
+		}
+		else if (t == 'a')
+		{
+			//向左走
+			if ((curX - 1) >= 0 && (map[curY][curX - 1] == '*' || map[curY][curX - 1] == 'E'))curX--;
+		}
+		else if (t == 'd')
+		{
+			//向右走
+			if ((curX + 1) < Col && (map[curY][curX + 1] == '*' || map[curY][curX + 1] == 'E'))curX++;
+		}
+		if (map[curY][curX] == 'E') break;
+		}
+		return 0;
+}

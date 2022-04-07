@@ -9,7 +9,7 @@ int main()
 	{
 		if (strExp[i] == '*')
 		{
-			float M = (strExp[i - 1] - '0') * (strExp[i + 1] - '0');
+			int M = (strExp[i - 1] - '0') * (strExp[i + 1] - '0');
 			strExp[i + 1] = M + '0';
 			strExp[i - 1] = '0';
 			if (i == 1)
@@ -30,7 +30,7 @@ int main()
 		}
 		else if (strExp[i] == '/')
 		{
-			float D = (strExp[i - 1] - '0') / (strExp[i + 1] - '0');
+			int D = (strExp[i - 1] - '0') / (strExp[i + 1] - '0');
 			strExp[i + 1] = D + '0';
 			strExp[i - 1] = '0';
 			if (i == 1)
@@ -50,17 +50,18 @@ int main()
 			}
 		}
 	}
-	int Ans= strExp[0] - '0';
+	int Ans = strExp[0] - '0';
 	for (int i = 1;strExp[i] != '\0';i++)
 	{
 		if (strExp[i] == '+')
 		{
-			 = Ans + (strExp[i + 1] - '0');
+			Ans =Ans + (strExp[i + 1] - '0');
 		}
 		else if (strExp[i] == '-')
 		{
-			 = Ans - (strExp[i + 1] - '0');
+			Ans = Ans - (strExp[i + 1] - '0');
 		}
 	}
 	printf("%d\n", Ans);
+}
 }

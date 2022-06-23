@@ -341,8 +341,6 @@ void transfer()
 	printf("请输入对方账户：");
 	char otherUsername[100];
 	scanf("%s",otherUsername);
-	
-	//验证账户的合法性、
 	Account*cur=head;
 	while(cur!=NULL)
 	{
@@ -352,11 +350,8 @@ void transfer()
 			printf("请输入转账金额：");
 			int money;
 			scanf("%d",&money); 
-		
-			//验证金额的合法性
 			if(curAccount->money>=money)
 			{
-				//转账（当前账户余额减少，对方账户余额增加） 
 				curAccount->money -= money;
 				//产生交易记录
 				//创建结点
@@ -377,7 +372,6 @@ void transfer()
 				char a[10]={'-'};
 				strcpy(newNode->type,a);
 				newNode->amount=money;	
-				//添加交易记录结点到链表 
 				if(tHead==NULL)
 				{
 					tHead=newNode;
@@ -390,10 +384,7 @@ void transfer()
 				}
 				
 				otherAccount->money += money;
-				//产生交易记录
-				//创建结点
 				Transaction * new2Node=(Transaction *)malloc(sizeof(Transaction));
-				//结点初始化
 				new2Node->next=NULL;
 				strcpy(new2Node->username,otherUsername);
 				time_t now2time;//时间戳转换日期 
@@ -409,7 +400,6 @@ void transfer()
 				char b[10]={'+'};
 				strcpy(new2Node->type,b);
 				new2Node->amount=money;	
-				//添加交易记录结点到链表 
 				if(tHead==NULL)
 				{
 					tHead=new2Node;

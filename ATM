@@ -229,15 +229,15 @@ void updatePassword()
 		scanf("%s",curAccount->password);
 		while(strcmp(oldPassword,curAccount->password)==0)
 		{
-			printf("新旧密码不能相同\n");
-			printf("重新输入\n");
+			printf("新旧密码需不一致\n");
+			printf("请重新输入\n");
 			scanf("%s",curAccount->password);
 		}
-		printf("修改成功\n");
+		printf("修改成功！\n");
 	}
 	else
 	{
-		printf("密码错误！不能修改！\n");
+		printf("密码错误！不能修改。\n");
 	}
 }
 void saveMoney()
@@ -329,7 +329,7 @@ void Record()
 	Transaction * curp=tHead;
 	while(curp!=NULL)
 	{
-		if(strcmp(curp->username,curAccount->password)==0)
+		if(strcmp(curp->username,curAccount->username)==0)
 		{
 			printf("%s\t%s %s\t%s%d\n",curp->username,curp->timestamp,curp->time,curp->type,curp->amount);
 		}
@@ -338,20 +338,25 @@ void Record()
 }
 void transfer()
 {
-	printf("请输入对方账户：");
+	printf("输入对方账户：");
 	char otherUsername[100];
 	scanf("%s",otherUsername);
+	
+	//验证账户的合法性、
 	Account*cur=head;
 	while(cur!=NULL)
 	{
 		if(strcmp(cur->username,otherUsername)==0)
 		{
 			otherAccount=cur;
-			printf("请输入转账金额：");
+			printf("输入转账金额：");
 			int money;
 			scanf("%d",&money); 
+		
+			//验证金额的合法性
 			if(curAccount->money>=money)
 			{
+				//转账（当前账户余额减少，对方账户余额增加） 
 				curAccount->money -= money;
 				//产生交易记录
 				//创建结点
@@ -372,6 +377,7 @@ void transfer()
 				char a[10]={'-'};
 				strcpy(newNode->type,a);
 				newNode->amount=money;	
+				//添加交易记录结点到链表 
 				if(tHead==NULL)
 				{
 					tHead=newNode;
@@ -384,7 +390,10 @@ void transfer()
 				}
 				
 				otherAccount->money += money;
+				//产生交易记录
+				//创建结点
 				Transaction * new2Node=(Transaction *)malloc(sizeof(Transaction));
+				//结点初始化
 				new2Node->next=NULL;
 				strcpy(new2Node->username,otherUsername);
 				time_t now2time;//时间戳转换日期 
@@ -400,6 +409,7 @@ void transfer()
 				char b[10]={'+'};
 				strcpy(new2Node->type,b);
 				new2Node->amount=money;	
+				//添加交易记录结点到链表 
 				if(tHead==NULL)
 				{
 					tHead=new2Node;
@@ -444,7 +454,7 @@ void signIn()
 				system("cls");
 				printf("登录成功！\n\n");
 				printf("余额：%d\n\n",curAccount->money);
-				printf("换密码请按 1 \n\n");
+				printf("修改密码请按 1 \n\n");
 				printf("存款请按 2 \n\n");
 				printf("取款请按 3 \n\n");
 				printf("查询交易记录请按 4 \n\n"); 
@@ -543,7 +553,7 @@ void signIn()
 			system("cls");
 			printf("登录失败！	账号或密码错误。\n");
 			int a=2-i;
-			printf("你还有%d次机会\n",a);
+			printf("你还剩%d次机会\n",a);
 		}
 	}
 }
@@ -592,7 +602,7 @@ void printLinkedList()
 }
 int main()
 {
-	printf("欢迎来到王者银行\n");
+	printf("欢迎来到xxx银行\n");
 	printf("Welcome to XXX bank\n");
 	printf("按1，中文服务\n");
 	printf("Press 2，English Service\n");
